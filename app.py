@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
@@ -20,19 +21,37 @@ run_button = st.sidebar.button('Run Analysis')
 st.write("Adjust the parameters in the sidebar and click 'Run Analysis' to generate a new regression model.")
 
 if run_button:
-    # 1. Data Preparation
-    st.header("1. Data and Model")
+    # --- 1. Business Understanding ---
+    st.header("CRISP-DM: 1. Business Understanding")
+    st.markdown("""
+    - **Goal:** To understand the relationship between an independent variable (X) and a dependent variable (y).
+    - **Objective:** Interactively build a simple linear regression model (y = ax + b) and evaluate its performance based on user-defined parameters.
+    - **Success Criteria:** The model should accurately estimate the underlying relationship from noisy data.
+    """)
+
+    # --- 2. Data Understanding & 3. Data Preparation ---
+    st.header("CRISP-DM: 2. Data Understanding & 3. Data Preparation")
+    st.markdown("Generating synthetic data based on the parameters you provided in the sidebar.")
     np.random.seed(42) # for reproducibility
     X = np.random.rand(num_points, 1) * 10
     true_y = a * X + b
     y = true_y + np.random.randn(num_points, 1) * noise
+    
+    st.subheader("Generated Data Sample")
+    df_sample = pd.DataFrame({'X': X.flatten(), 'Generated Y (with noise)': y.flatten()})
+    st.dataframe(df_sample.head())
 
-    # 2. Modeling
+
+    # --- 4. Modeling ---
+    st.header("CRISP-DM: 4. Modeling")
+    st.markdown("Training a simple linear regression model using the generated data.")
     model = LinearRegression()
     model.fit(X, y)
-
-    # 3. Evaluation
     y_pred = model.predict(X)
+
+    # --- 5. Evaluation ---
+    st.header("CRISP-DM: 5. Evaluation")
+    st.markdown("Evaluating the model's performance by comparing the predicted values against the actual values.")
     mse = mean_squared_error(y, y_pred)
     r2 = r2_score(y, y_pred)
 
@@ -47,8 +66,9 @@ if run_button:
     col2.metric("Estimated Intercept (b')", f"{model.intercept_[0]:.4f}", f"{model.intercept_[0] - b:.4f}")
 
 
-    # 4. Deployment (Visualization)
-    st.header("2. Visualization")
+    # --- 6. Deployment (Visualization) ---
+    st.header("CRISP-DM: 6. Deployment")
+    st.markdown("Visualizing the results, including the original noisy data, the true underlying relationship, and the fitted regression line.")
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.scatter(X, y, color='blue', label='Noisy Data Points')
     ax.plot(X, true_y, color='green', linewidth=2, label=f'True Line (y = {a}x + {b})')
