@@ -1,4 +1,4 @@
-Flask
+streamlit
 numpy
 matplotlib
 scikit-learn
