@@ -1,9 +1,35 @@
 # Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
 
-# Generated files
-linear_regression_plot.png
+# Dependencies
+node_modules/
 
-# macOS
+# Saved Models
+*.pkl
+
+# OS generated files
 .DS_Store
+Thumbs.db
+
+# IDE directories
+.vscode/
+.idea/
+.project
+.classpath
+*.sublime-workspace
+
+# AI Assistant and Tooling Config
+.amazonq/
+.claude/
+.cursor/
+.factory/
+.github/
+.kilocode/
+.opencode/
+.windsurf/
