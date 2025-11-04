@@ -8,6 +8,7 @@ The project is built using Python, scikit-learn, and Streamlit, and follows the 
 - Interactive web interface to classify messages.
 - Trains a Naive Bayes classifier on the SMS Spam Collection dataset.
 - Clear separation of UI (`app.py`) and machine learning logic (`spam_classifier.py`).
+- Data visualization with word clouds to show the most common words in spam and ham messages.
 
 ## Getting Started
 
